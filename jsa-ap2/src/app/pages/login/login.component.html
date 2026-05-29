@@ -1,0 +1,102 @@
+<div class="login-container">
+  <div class="login-card">
+
+    <!-- Título -->
+    <div class="text-center mb-4">
+      <h2><i class="fa-solid fa-bolt"></i> TechStore</h2>
+      <p class="text-muted" style="font-size:0.9rem;">Inicia sesión para acceder al dashboard</p>
+    </div>
+
+    <!-- Mensaje de éxito (con *ngIf) -->
+    <div class="alert alert-success" *ngIf="loginExitoso">
+      <i class="fa-regular fa-circle-check"></i> Sesión iniciada correctamente. Redirigiendo...
+    </div>
+
+    <!-- Mensaje de bloqueo por 3 intentos (con *ngIf) -->
+    <div class="alert alert-danger" *ngIf="loginBloqueado">
+      <strong><i class="fa-solid fa-ban"></i> Acceso bloqueado.</strong><br>
+      Superaste los 3 intentos permitidos.<br>
+      Serás redirigido a la página principal.
+    </div>
+
+    <!-- Formulario (se oculta si está bloqueado o exitoso con *ngIf) -->
+    <div *ngIf="!loginBloqueado && !loginExitoso">
+
+      <!-- Indicador de intentos: *ngFor sobre arreglo de booleanos -->
+      <div class="d-flex align-items-center gap-2 mb-3">
+        <small class="text-muted">Intentos:</small>
+        <span
+          *ngFor="let usado of puntosIntentos; let i = index"
+          class="attempt-dot"
+          [ngClass]="{ 'usado': usado }"
+          [title]="'Intento ' + (i + 1)"
+        ></span>
+        <!-- [ngStyle] cambia el color según los intentos restantes -->
+        <small
+          [ngStyle]="{
+            'color': intentosRestantes === 1 ? '#ef4444' : intentosRestantes === 2 ? '#f59e0b' : '#64748b',
+            'font-weight': intentosRestantes === 1 ? '700' : '400'
+          }"
+        >
+          {{ intentosRestantes }} intento{{ intentosRestantes === 1 ? '' : 's' }} restante{{ intentosRestantes === 1 ? '' : 's' }}
+        </small>
+      </div>
+
+      <!-- Mensaje de error (usando *ngIf y [ngClass]) -->
+      <div
+        class="alert"
+        *ngIf="mostrarError"
+        [ngClass]="{
+          'alert-warning': intentosRestantes > 1,
+          'alert-danger':  intentosRestantes <= 1
+        }"
+      >
+        <i class="fa-solid fa-triangle-exclamation"></i> {{ errorMsg }}
+      </div>
+
+      <!-- Campo usuario: Two-Way Data Binding con [(ngModel)] -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Usuario</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Ingresa tu usuario"
+          [(ngModel)]="usuario"
+          name="usuario"
+          required
+          autocomplete="username"
+        />
+      </div>
+
+      <!-- Campo contraseña: [(ngModel)] -->
+      <div class="mb-4">
+        <label class="form-label fw-semibold">Contraseña</label>
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Ingresa tu contraseña"
+          [(ngModel)]="password"
+          name="password"
+          required
+          autocomplete="current-password"
+        />
+      </div>
+
+      <!-- Botón con Event Binding (click) -->
+      <button
+        class="btn btn-primary w-100 py-2 fw-semibold"
+        (click)="onLogin()"
+        [disabled]="!usuario || !password"
+      >
+        Iniciar Sesión
+      </button>
+
+      <!-- Interpolación {{ }} mostrando las credenciales de demo -->
+      <div class="mt-3 p-2 rounded" style="background:#f1f5f9; font-size:0.8rem;">
+        <strong>Demo:</strong> usuario: <code>admin</code> | contraseña: <code>1234</code>
+      </div>
+
+    </div>
+
+  </div>
+</div>

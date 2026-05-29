@@ -1,0 +1,87 @@
+<!-- HERO SECTION -->
+<section class="hero-section">
+  <div class="container">
+    <h1><i class="fa-solid fa-rocket"></i> Bienvenido a TechStore</h1>
+    <p>Tecnología de última generación al alcance de tu mano. Los mejores precios, la mejor calidad.</p>
+    <a routerLink="/productos" class="btn btn-light btn-lg fw-bold me-2">
+      Ver Productos
+    </a>
+    <a routerLink="/ofertas" class="btn btn-outline-light btn-lg">
+      <i class="fa-solid fa-fire-flame-curved"></i> Ver Ofertas
+    </a>
+  </div>
+</section>
+
+<!-- CATEGORÍAS -->
+<section class="py-5 bg-white">
+  <div class="container">
+    <h2 class="text-center fw-bold mb-4">Explora por categoría</h2>
+    <div class="row g-3 justify-content-center">
+      <!-- *ngFor sobre las categorías -->
+      <div class="col-6 col-md-4 col-lg-2" *ngFor="let cat of categorias">
+        <a [routerLink]="cat.ruta" class="text-decoration-none">
+          <div class="card text-center border-0 shadow-sm p-3 h-100"
+               style="transition: transform 0.2s; cursor:pointer;"
+               onmouseover="this.style.transform='translateY(-4px)'"
+               onmouseout="this.style.transform='translateY(0)'">
+            <!-- <div style="font-size:2.2rem;">{{ cat.icono }}</div> -->
+            <div style="font-size:6rem;" class="text-primary"><i [class]="cat.icono"></i></div>
+            <p class="mb-0 mt-2 fw-semibold" style="font-size:0.85rem;">{{ cat.nombre }}</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTOS DESTACADOS -->
+<section class="py-5">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="fw-bold mb-0"><i class="fa-solid fa-star"></i> Productos Destacados</h2>
+      <a routerLink="/productos" class="btn btn-outline-primary">Ver todos →</a>
+    </div>
+
+    <div class="row g-4">
+      <!-- *ngFor sobre productosDestacados -->
+      <div class="col-sm-6 col-lg-3" *ngFor="let p of productosDestacados">
+        <div class="product-card card h-100">
+          <div style="position:relative;">
+            <img [src]="p.imagen" [alt]="p.nombre" />
+            <span class="position-absolute top-0 end-0 m-2 badge bg-danger"
+                  *ngIf="p.oferta">
+              -{{ p.descuento }}%
+            </span>
+          </div>
+          <div class="card-body">
+            <span class="badge-categoria">{{ p.categoria }}</span>
+            <h6 class="fw-bold mt-2">{{ p.nombre }}</h6>
+            <!-- CurrencyPipe -->
+            <p class="precio mb-1">
+              {{ p.oferta
+                  ? calcularPrecioOferta(p.precio, p.descuento)
+                  : p.precio | currency:'PEN':'S/ ':'1.0-0' }}
+            </p>
+            <a routerLink="/productos" class="btn btn-primary btn-sm w-100">Ver más</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mensaje si JSON Server no está corriendo -->
+    <div class="alert alert-info mt-4" *ngIf="productosDestacados.length === 0">
+      💡 Para ver los productos, ejecuta <code>npm run server</code> en otra terminal.
+    </div>
+  </div>
+</section>
+
+<!-- BANNER PROMOCIONAL -->
+<section class="py-5 bg-dark text-white text-center">
+  <div class="container">
+    <h2 class="fw-bold"><i class="fa-solid fa-fire-flame-curved"></i> ¡Ofertas especiales esta semana!</h2>
+    <p class="text-muted">Hasta 25% de descuento en productos seleccionados</p>
+    <a routerLink="/ofertas" class="btn btn-warning btn-lg fw-bold">
+      Ver ofertas ahora
+    </a>
+  </div>
+</section>

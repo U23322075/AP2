@@ -1,0 +1,49 @@
+<section class="hero-section" style="background: linear-gradient(135deg, #064e3b 0%, #059669 100%);">
+  <div class="container">
+    <h1><i class="fa-solid fa-shop"></i> Nuestra Tienda</h1>
+    <p>Visítanos y encuentra todo lo que necesitas</p>
+  </div>
+</section>
+
+<div class="container py-5">
+  <div class="row g-4">
+
+    <div class="col-md-6">
+      <div class="card border-0 shadow-sm h-100 p-4">
+        <h4 class="fw-bold mb-3"><i class="fa-solid fa-map-pin"></i> Ubicación</h4>
+        <p>Av. Javier Prado Este 4200, Lima, Perú</p>
+        <p><i class="fa-solid fa-bus-simple"></i> Cerca al metro San Borja Norte</p>
+        <div style="background:#e2e8f0; height:200px; border-radius:8px; display:flex; align-items:center; justify-content:center; color:#64748b;">
+          <i class="fa-solid fa-map-pin"></i> Mapa interactivo aquí
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card border-0 shadow-sm h-100 p-4">
+        <h4 class="fw-bold mb-3"><i class="fa-solid fa-map-pin"></i> Horarios de atención</h4>
+        <!-- *ngFor sobre los horarios -->
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Día</th>
+                <th>Horario</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let h of horarios">
+                <td class="fw-semibold">{{ h.dia }}</td>
+                <td>{{ h.hora }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <hr>
+        <p><i class="fa-brands fa-whatsapp"></i> +51 959 222 887</p>
+        <p><i class="fa-regular fa-envelope-open"></i> ventas&#64;techstore.pe</p>
+      </div>
+    </div>
+
+  </div>
+</div>

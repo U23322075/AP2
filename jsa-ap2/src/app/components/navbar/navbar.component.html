@@ -1,0 +1,93 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top">
+  <div class="container">
+
+    <!-- Nuestro Logo -->
+    <a class="navbar-brand" routerLink="/home">
+      <i class="fa-solid fa-bolt"></i> TechStore
+    </a>
+
+    <!-- Toggle para mobile -->
+    <button class="navbar-toggler" type="button"
+      data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Menú de navegación -->
+    <div class="collapse navbar-collapse" id="navbarMenu">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home" routerLinkActive="active">
+            <i class="fa-solid fa-house"></i> Home
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/productos" routerLinkActive="active">
+            <i class="fa-solid fa-cube"></i> Productos
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/ofertas" routerLinkActive="active">
+            <i class="fa-solid fa-fire-flame-curved"></i> Ofertas
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/tienda" routerLinkActive="active">
+            <i class="fa-solid fa-shop"></i> Tienda
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/contacto" routerLinkActive="active">
+            <i class="fa-solid fa-map-pin"></i> Contacto
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/mi-cuenta" routerLinkActive="active">
+            <i class="fa-solid fa-user"></i> Mi Cuenta
+          </a>
+        </li>
+
+      </ul>
+
+      <!-- Sección derecha: sesión -->
+      <ul class="navbar-nav">
+
+        <!-- Si NO está autenticado: mostrar botón Login -->
+        <li class="nav-item" *ngIf="!authService.isAuthenticated()">
+          <a class="nav-link btn btn-outline-light btn-sm px-3"
+             routerLink="/login">
+            Iniciar Sesión
+          </a>
+        </li>
+
+        <!-- Si SÍ está autenticado: mostrar usuario y botones -->
+        <li class="nav-item dropdown" *ngIf="authService.isAuthenticated()">
+          <a class="nav-link dropdown-toggle" href="#"
+             data-bs-toggle="dropdown">
+            👤 {{ authService.getCurrentUser()?.usuario | uppercase }}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li>
+              <a class="dropdown-item" routerLink="/dashboard">
+                <i class="fa-solid fa-chart-column"></i> Dashboard
+              </a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <button class="dropdown-item text-danger" (click)="logout()">
+                <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+              </button>
+            </li>
+          </ul>
+        </li>
+
+      </ul>
+    </div>
+
+  </div>
+</nav>

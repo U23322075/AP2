@@ -1,0 +1,72 @@
+<section class="hero-section" style="background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 100%);">
+  <div class="container">
+    <h1><i class="fa-solid fa-map-pin"></i> Contáctanos</h1>
+    <p>Estamos aquí para ayudarte. Escríbenos y te respondemos a la brevedad.</p>
+  </div>
+</section>
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-7">
+
+      <!-- Mensaje de éxito usando *ngIf -->
+      <div class="alert alert-success text-center py-4" *ngIf="enviado">
+        <h4><i class="fa-solid fa-check"></i> Mensaje enviado</h4>
+        <p class="mb-0">Gracias <strong>{{ nombre || 'por contactarnos' }}</strong>. Te responderemos pronto.</p>
+        <button class="btn btn-success mt-3" (click)="enviado = false">
+          Enviar otro mensaje
+        </button>
+      </div>
+
+      <!-- Formulario con *ngIf -->
+      <div class="card border-0 shadow-sm p-4" *ngIf="!enviado">
+        <h4 class="fw-bold mb-4">Envíanos un mensaje</h4>
+
+        <!-- [(ngModel)] en todos los campos -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Nombre completo *</label>
+          <input type="text" class="form-control"
+                 [(ngModel)]="nombre"
+                 placeholder="Tu nombre" required />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Correo electrónico *</label>
+          <input type="email" class="form-control"
+                 [(ngModel)]="email"
+                 placeholder="tu@email.com" required />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Asunto</label>
+          <input type="text" class="form-control"
+                 [(ngModel)]="asunto"
+                 placeholder="¿En qué podemos ayudarte?" />
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label fw-semibold">Mensaje *</label>
+          <textarea class="form-control" rows="4"
+                    [(ngModel)]="mensaje"
+                    placeholder="Escribe tu mensaje aquí..."></textarea>
+        </div>
+
+        <!-- usamos interpolación {{ }} -->
+        <div class="alert alert-light border mb-3" *ngIf="nombre || mensaje">
+          <small class="text-muted">Vista previa:</small><br>
+          <strong>De:</strong> {{ nombre || '...' }} ({{ email || '...' }})<br>
+          <strong>Mensaje:</strong> {{ mensaje | slice:0:80 }}{{ mensaje.length > 80 ? '...' : '' }}
+        </div>
+
+        <!-- Botón con Event Binding (click) y [disabled] con Property Binding -->
+        <button class="btn btn-primary w-100 fw-semibold py-2"
+                (click)="enviar()"
+                [disabled]="!nombre || !email || !mensaje || enviando">
+          <span *ngIf="enviando" class="spinner-border spinner-border-sm me-2"></span>
+          {{ enviando ? 'Enviando...' : '📨 Enviar mensaje' }}
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

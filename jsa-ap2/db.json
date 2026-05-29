@@ -1,0 +1,103 @@
+{
+  "productos": [
+    {
+      "id": 1,
+      "nombre": "Laptop Gamer RTX 4060",
+      "imagen": "https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=400",
+      "categoria": "Tecnología",
+      "precio": 4500,
+      "stock": 12,
+      "oferta": false,
+      "descuento": 0,
+      "descripcion": "Laptop de alto rendimiento para gaming con tarjeta gráfica RTX 4060."
+    },
+    {
+      "id": 2,
+      "nombre": "Monitor UltraWide 34\"",
+      "imagen": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400",
+      "categoria": "Tecnología",
+      "precio": 1800,
+      "stock": 8,
+      "oferta": true,
+      "descuento": 15,
+      "descripcion": "Monitor curvo ultrawide de 34 pulgadas con resolución WQHD."
+    },
+    {
+      "id": 3,
+      "nombre": "Teclado Mecánico RGB",
+      "imagen": "https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=400",
+      "categoria": "Periféricos",
+      "precio": 350,
+      "stock": 25,
+      "oferta": true,
+      "descuento": 20,
+      "descripcion": "Teclado mecánico con switches Cherry MX Red e iluminación RGB."
+    },
+    {
+      "id": 4,
+      "nombre": "Mouse Inalámbrico Pro",
+      "imagen": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400",
+      "categoria": "Periféricos",
+      "precio": 180,
+      "stock": 30,
+      "oferta": false,
+      "descuento": 0,
+      "descripcion": "Mouse ergonómico inalámbrico con sensor óptico de 16000 DPI."
+    },
+    {
+      "id": 5,
+      "nombre": "Auriculares Gaming 7.1",
+      "imagen": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400",
+      "categoria": "Audio",
+      "precio": 420,
+      "stock": 15,
+      "oferta": true,
+      "descuento": 10,
+      "descripcion": "Auriculares con sonido envolvente 7.1 y micrófono retráctil."
+    },
+    {
+      "id": 6,
+      "nombre": "Silla Gamer ErgoMax",
+      "imagen": "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=400",
+      "categoria": "Mobiliario",
+      "precio": 1200,
+      "stock": 6,
+      "oferta": false,
+      "descuento": 0,
+      "descripcion": "Silla gaming ergonómica con soporte lumbar y reposapiés ajustable."
+    },
+    {
+      "id": 7,
+      "nombre": "Webcam 4K Streaming",
+      "imagen": "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=400",
+      "categoria": "Periféricos",
+      "precio": 290,
+      "stock": 18,
+      "oferta": true,
+      "descuento": 25,
+      "descripcion": "Webcam 4K con autofocus y corrección de iluminación automática."
+    },
+    {
+      "id": 8,
+      "nombre": "Disco SSD NVMe 1TB",
+      "imagen": "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=400",
+      "categoria": "Almacenamiento",
+      "precio": 320,
+      "stock": 40,
+      "oferta": false,
+      "descuento": 0,
+      "descripcion": "Disco SSD NVMe con velocidades de lectura de hasta 7000 MB/s."
+    }
+  ],
+  "usuarios": [
+    {
+      "id": 1,
+      "nombre": "Administrador",
+      "usuario": "admin",
+      "password": "1234",
+      "email": "admin@tienda.com",
+      "rol": "admin"
+    }
+  ],
+  "contactos": []
+}

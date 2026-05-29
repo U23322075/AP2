@@ -1,0 +1,141 @@
+<div class="container py-5">
+
+  <!-- Cabecera del dashboard -->
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+    <div>
+      <!-- Interpolación {{ }} con el nombre del usuario -->
+      <h2 class="fw-bold mb-0">
+        Bienvenido, {{ usuario?.usuario | uppercase }}
+      </h2>
+      <!-- DatePipe: formateando la fecha de hoy -->
+      <p class="text-muted mb-0" style="font-size:0.9rem;">
+        Hoy es {{ fechaHoy | date:'EEEE dd \'de\' MMMM, yyyy':'':'es' }}
+      </p>
+    </div>
+    <button class="btn btn-outline-danger" (click)="logout()">
+      <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+    </button>
+  </div>
+
+  <!-- Info del usuario logueado -->
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-body">
+      <h5 class="card-title fw-semibold"><i class="fa-solid fa-user"></i> Información del usuario</h5>
+      <div class="row">
+        <div class="col-sm-6">
+          <p><strong>Usuario:</strong> {{ usuario?.usuario }}</p>
+          <p><strong>Email:</strong> {{ usuario?.email }}</p>
+        </div>
+        <div class="col-sm-6">
+          <p><strong>Rol:</strong>
+            <span class="badge bg-primary ms-1">Administrador</span>
+          </p>
+          <!-- DatePipe aplicado a la fecha de login -->
+          <p><strong>Sesión iniciada:</strong>
+            {{ usuario?.loginDate | date:'dd/MM/yyyy HH:mm' }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Estadísticas: *ngFor sobre las cards -->
+  <h5 class="fw-semibold mb-3"><i class="fa-solid fa-chart-column"></i> Estadísticas del inventario</h5>
+  <div class="row g-3 mb-4">
+
+    <div class="col-6 col-md-3">
+      <div class="dashboard-stat-card">
+        <div class="stat-number">{{ totalProductos }}</div>
+        <div class="stat-label">Total productos</div>
+      </div>
+    </div>
+
+    <div class="col-6 col-md-3">
+      <div class="dashboard-stat-card warning">
+        <div class="stat-number">{{ totalOfertas }}</div>
+        <div class="stat-label">En oferta</div>
+      </div>
+    </div>
+
+    <div class="col-6 col-md-3">
+      <div class="dashboard-stat-card danger">
+        <!-- [ngClass] aplica estilo rojo si el stock es crítico -->
+        <div class="stat-number"
+          [ngClass]="{ 'text-danger': stockBajo > 3, 'text-success': stockBajo <= 3 }">
+          {{ stockBajo }}
+        </div>
+        <div class="stat-label">Stock bajo (≤10)</div>
+      </div>
+    </div>
+
+    <div class="col-6 col-md-3">
+      <div class="dashboard-stat-card success">
+        <!-- CurrencyPipe: formatea el valor como moneda peruana -->
+        <div class="stat-number" style="font-size:1.4rem;">
+          {{ valorInventario | currency:'PEN':'symbol':'1.0-0' }}
+        </div>
+        <div class="stat-label">Valor inventario</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Tabla de productos con *ngFor -->
+  <h5 class="fw-semibold mb-3"><i class="fa-solid fa-cube"></i> Listado de productos</h5>
+  <div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead class="table-dark">
+            <tr>
+              <th>#</th>
+              <th>Producto</th>
+              <th>Categoría</th>
+              <th>Precio</th>
+              <th>Stock</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- *ngFor iterando sobre los productos -->
+            <tr *ngFor="let p of productos; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ p.nombre }}</td>
+              <td>
+                <span class="badge-categoria">{{ p.categoria }}</span>
+              </td>
+              <!-- CurrencyPipe en la tabla -->
+              <td>{{ p.precio | currency:'PEN':'S/ ':'1.0-0' }}</td>
+              <!-- [ngClass] para colorear el stock según cantidad -->
+              <td
+                [ngClass]="{
+                  'text-danger fw-bold': p.stock <= 5,
+                  'text-warning fw-semibold': p.stock > 5 && p.stock <= 10,
+                  'text-success': p.stock > 10
+                }"
+              >
+                {{ p.stock }} uds.
+              </td>
+              <td>
+                <!-- *ngIf para mostrar badge de oferta -->
+                <span class="badge bg-warning text-dark" *ngIf="p.oferta">
+                  OFERTA {{ p.descuento }}%
+                </span>
+                <span class="badge bg-secondary" *ngIf="!p.oferta">
+                  Normal
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mensaje si no hay productos (Cuando JSON Server no está corriendo) -->
+  <div class="alert alert-warning mt-3" *ngIf="productos.length === 0">
+    <i class="fa-solid fa-triangle-exclamation"></i> No se pudieron cargar los productos. Asegúrate de ejecutar
+    <code>npm run server</code> para iniciar JSON Server en el puerto 3000.
+  </div>
+
+</div>

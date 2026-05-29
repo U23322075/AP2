@@ -1,0 +1,41 @@
+<section class="hero-section" style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%);">
+  <div class="container">
+    <h1><i class="fa-solid fa-user"></i> Mi Cuenta</h1>
+    <p>Gestiona tu cuenta y tus pedidos</p>
+  </div>
+</section>
+
+<div class="container py-5">
+
+  <!-- Si está autenticado -->
+  <div *ngIf="authService.isAuthenticated()">
+    <div class="card border-0 shadow-sm p-4 mb-4">
+      <h4 class="fw-bold">Bienvenido, {{ authService.getCurrentUser()?.usuario | uppercase }} 👋</h4>
+      <p class="text-muted">Email: {{ authService.getCurrentUser()?.email }}</p>
+      <hr>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <a routerLink="/dashboard" class="btn btn-primary w-100">
+            <i class="fa-solid fa-chart-pie"></i> Ir al Dashboard
+          </a>
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-outline-danger w-100" (click)="authService.logout()">
+            <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Si NO está autenticado -->
+  <div *ngIf="!authService.isAuthenticated()" class="text-center py-4">
+    <div style="font-size:4rem;"><i class="fa-solid fa-lock"></i></div>
+    <h4 class="fw-bold mt-3">No has iniciado sesión</h4>
+    <p class="text-muted">Inicia sesión para acceder a tu cuenta y al dashboard.</p>
+    <a routerLink="/login" class="btn btn-primary btn-lg mt-2">
+      Iniciar Sesión
+    </a>
+  </div>
+
+</div>
